@@ -4,7 +4,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizador Royal Prestige Innove, Hilago SRL 2024</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Configuración para usar la fuente Inter y personalizaciones de color -->
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
@@ -44,46 +43,36 @@
         </header>
 
         <main class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <!-- Columna 1: Catálogo de Productos -->
             <div class="lg:col-span-2 bg-white p-6 rounded-xl shadow-lg h-[80vh] flex flex-col">
                 <h2 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Catálogo de Productos</h2>
                 
-                <!-- Filtros y Búsqueda -->
                 <div class="flex flex-col sm:flex-row gap-4 mb-4">
                     <input type="text" id="product-search" placeholder="Buscar por nombre o SKU..." class="flex-grow p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition duration-150">
-                    <select id="category-filter" class="p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition duration-150 sm:w-1/3">
+                    <select type="text" id="category-filter" class="p-2 border border-gray-300 rounded-lg focus:ring-emerald-500 focus:border-emerald-500 transition duration-150 sm:w-1/3">
                         <option value="">Todas las Categorías</option>
-                        <!-- Options will be populated by JS -->
-                    </select>
+                        </select>
                 </div>
 
-                <!-- Lista de Productos -->
                 <div id="product-list" class="flex-grow overflow-y-auto custom-scroll space-y-3">
-                    <!-- Products will be rendered here -->
                     <p class="text-center text-gray-500 pt-4">Cargando productos...</p>
                 </div>
             </div>
 
-            <!-- Columna 2: Resumen de Cotización y Cálculos -->
             <div class="lg:col-span-1">
                 <div id="quote-summary" class="bg-white rounded-xl shadow-xl border border-emerald-100">
                     <div class="p-6">
                         <h2 class="text-xl font-bold text-emerald-700 mb-4 border-b pb-2">Resumen de Cotización</h2>
                         
-                        <!-- Lista de Elementos Agregados -->
                         <div id="quote-items" class="min-h-[100px] max-h-[250px] overflow-y-auto custom-scroll space-y-3 mb-4">
                             <p id="empty-quote-message" class="text-center text-gray-400 mt-6 italic">Añade productos del catálogo.</p>
-                            <!-- Quote items will be rendered here -->
-                        </div>
+                            </div>
 
                         <div class="space-y-2 border-t pt-4">
-                            <!-- Totales -->
                             <div class="flex justify-between font-medium text-gray-600">
                                 <span>Subtotal:</span>
                                 <span id="subtotal-display">$0.00</span>
                             </div>
 
-                            <!-- Descuento -->
                             <div class="flex justify-between items-center">
                                 <label for="discount-percentage" class="text-gray-600">
                                     Descuento (%):
@@ -102,7 +91,6 @@
                         </div>
                     </div>
                     
-                    <!-- Sección de Regalos (Volumen de Compra) -->
                     <div class="p-6 bg-yellow-50 rounded-b-xl border-t border-yellow-200">
                         <h3 class="text-lg font-bold text-yellow-800 mb-3">Control de Regalos por Volumen (Max 10%)</h3>
 
@@ -114,28 +102,22 @@
                             <span>Valor Máximo Permitido (10% del Total):</span>
                             <span id="gift-max-display">$0.00</span>
                         </div>
-                        
-                        <!-- Mensaje de Advertencia/Éxito -->
+                   
                         <div id="gift-warning-message" class="mt-3 p-3 text-center rounded-lg font-semibold hidden">
-                            <!-- Message will be rendered here -->
-                        </div>
+                            </div>
                     </div>
 
-                    <!-- Sección de Financiamiento -->
                     <div class="p-6 bg-emerald-50 rounded-b-xl border-t border-emerald-200">
                         <h3 class="text-lg font-bold text-emerald-700 mb-3">Opciones de Financiamiento</h3>
 
-                        <!-- Tasa de Interés -->
                         <div class="flex justify-between items-center mb-4">
                             <label for="interest-rate" class="text-gray-700 font-medium">Tasa de Interés Anual (%):</label>
                             <input type="number" id="interest-rate" value="31" min="0" max="100" step="0.5" class="w-20 text-right p-1 border border-gray-300 rounded-lg">
                         </div>
 
-                        <!-- Pago Inicial -->
                         <div class="mb-4">
                             <label for="initial-payment" class="text-gray-700 font-medium block mb-2">Pago Inicial:</label>
                             <div class="flex gap-2 mb-2">
-                                <!-- Nuevo botón para 5% -->
                                 <button data-percent="5" class="preset-initial-btn flex-1 py-1 px-3 text-sm rounded-full bg-emerald-200 text-emerald-800 hover:bg-emerald-300 transition duration-150">5%</button>
                                 <button data-percent="10" class="preset-initial-btn flex-1 py-1 px-3 text-sm rounded-full bg-emerald-200 text-emerald-800 hover:bg-emerald-300 transition duration-150">10%</button>
                                 <button data-percent="20" class="preset-initial-btn flex-1 py-1 px-3 text-sm rounded-full bg-emerald-200 text-emerald-800 hover:bg-emerald-300 transition duration-150">20%</button>
@@ -144,13 +126,11 @@
                             <input type="number" id="initial-payment" value="0" min="0" class="w-full text-right p-2 border border-gray-300 rounded-lg">
                             <p id="initial-payment-percent-display" class="text-sm text-gray-500 text-right mt-1"></p>
 
-                            <!-- Mensaje de advertencia de Pago Inicial Mínimo (NUEVO) -->
                             <div id="initial-payment-warning" class="mt-2 p-2 text-center rounded-lg font-medium text-red-800 bg-red-100 hidden">
                                 ⚠️ El Pago Inicial mínimo debe ser del 5% del Total a Pagar.
                             </div>
                         </div>
                         
-                        <!-- Selección de Plazo -->
                         <div class="mb-4">
                             <p class="text-gray-700 font-medium mb-2">Plazo (Meses):</p>
                             <div class="flex flex-wrap gap-2">
@@ -168,13 +148,11 @@
                                 </label>
                                 <label class="flex items-center space-x-2 bg-white border border-emerald-500 rounded-lg p-2 cursor-pointer transition duration-150 hover:bg-emerald-50">
                                     <input type="radio" name="term" value="31" class="term-radio text-emerald-600 focus:ring-emerald-500">
-                                    <!-- Ya corregido: Muestra 31 Meses -->
                                     <span class="text-sm font-medium">31 Meses</span> 
                                 </label>
                             </div>
                         </div>
 
-                        <!-- Resultados de Financiamiento -->
                         <div class="space-y-2 border-t pt-4">
                             <div class="flex justify-between text-gray-600">
                                 <span>Monto a Financiar:</span>
@@ -186,7 +164,6 @@
                             </div>
                         </div>
 
-                        <!-- Botón Limpiar Cotización -->
                         <button id="clear-quote-button" class="w-full mt-4 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 transition duration-150 shadow-md">
                             Limpiar Cotización
                         </button>
@@ -205,7 +182,6 @@
         initialPayment: 0,
         termMonths: 24
     };
-
     // Constante para el límite del regalo (10% del total final)
     const GIFT_LIMIT_PERCENTAGE = 0.10; // 10%
     // Constante para el pago inicial mínimo (5% del total final)
@@ -217,7 +193,6 @@
         currency: 'MXN',
         minimumFractionDigits: 2
     });
-
     // Catálogo de Productos (DATOS ACTUALIZADOS CON LA LISTA EXTENSA DEL USUARIO)
     const productCatalog = [
         // AROS SILICROMATICOS (Añadido)
@@ -371,22 +346,24 @@
         { sku: 'SP0297', name: 'Cuchillo Santoku de 3.5" - Precision Serie III', price: 2500, category: 'Cuchillería' },
         { sku: 'PR0008', name: 'Tabla Grande P/Cortar de Bambú Silicona - Rojo', price: 8200, category: 'Cuchillería' },
         { sku: 'PR0021', name: 'Tabla Pequeña P/Cortar de Bambú Silicona - Verde', price: 6500, category: 'Cuchillería' },
-
+        
         // ACCESORIOS DE COCINA - PS III (Añadido)
         { sku: 'SP1850', name: 'Destapador Precision Series', price: 2500, category: 'Accesorios PS III' },
         { sku: 'SP1851', name: 'Rallador Precision Series', price: 2700, category: 'Accesorios PS III' },
-        { sku: 'SP1852', name: 'Espátula Precision Series', price: 3300, category: 'Accesorios PS III' },
-        { sku: 'SP1853', name: 'Batidor de Globo Precision Series', price: 3300, category: 'Accesorios PS III' },
-        { sku: 'SP1854', name: 'Pelador Precision Series', price: 2700, category: 'Accesorios PS III' },
-        { sku: 'SP1856', name: 'Cortador de Pizza Precision Series', price: 3300, category: 'Accesorios PS III' },
-        { sku: 'SP1857', name: 'Machacador redondo con Hoyos', price: 3300, category: 'Accesorios PS III' },
-        { sku: 'SP1861', name: 'Jgo. De 2 Espátulas de Silicona PS', price: 4500, category: 'Accesorios PS III' },
+        { sku: 'SP1852', name: 'Espátula Precision Series', price: 2800, category: 'Accesorios PS III' },
+        { sku: 'SP1853', name: 'Cucharon Precision Series', price: 3100, category: 'Accesorios PS III' },
+        { sku: 'SP1854', name: 'Tenedor de Cocina Precision Series', price: 2900, category: 'Accesorios PS III' },
+        { sku: 'SP1855', name: 'Cuchara para Servir Precision Series', price: 3000, category: 'Accesorios PS III' },
+        { sku: 'SP1856', name: 'Pelador Precision Series', price: 2500, category: 'Accesorios PS III' },
+        { sku: 'SP1857', name: 'Mazo Precision Series', price: 3000, category: 'Accesorios PS III' },
+        { sku: 'SP1858', name: 'Cuchara de Helado Precision Series', price: 2800, category: 'Accesorios PS III' },
+        { sku: 'SP1859', name: 'Tijeras de Cocina Precision Series', price: 3200, category: 'Accesorios PS III' },
 
-        // FILTROS DE DUCHA (Añadido)
-        { sku: 'PR0003', name: 'Filtro de Ducha Frescapure', price: 25000, category: 'Filtración y Purificación' },
-        { sku: 'WF0080', name: 'SEIS (6) CARTUCHOS- FILTRO P/ DUCHA', price: 24000, category: 'Filtración y Purificación' },
-        { sku: 'WF0075', name: 'DOS (2) CARTUCHOS- FILTRO P/ DUCHA', price: 9000, category: 'Filtración y Purificación' },
-
+        // FILTRACIÓN y PURIFICACIÓN (Añadido)
+        { sku: 'WA1010', name: 'Filtro de Agua (Con 1 Filtro)', price: 24000, category: 'Filtración y Purificación' },
+        { sku: 'WA2020', name: 'Filtro de Agua (Con 2 Filtros)', price: 32000, category: 'Filtración y Purificación' }, // Se asigna SKU genérico
+        { sku: 'WA1011', name: 'Cartuchos de Reemplazo para Filtro de Agua (2 Pzs)', price: 16000, category: 'Filtración y Purificación' },
+        { sku: 'WA1012', name: 'Cartuchos de Reemplazo para Filtro de Agua (3 Pzs)', price: 24000, category: 'Filtración y Purificación' },
         // Purificador de Aire (Añadido)
         { sku: 'AP2101', name: 'Purificador de Aire Earth+ C/Cable', price: 90000, category: 'Filtración y Purificación' },
         { sku: 'AP2004', name: 'Cartuchos de Reemplazo Earth+', price: 21000, category: 'Filtración y Purificación' },
@@ -402,31 +379,34 @@
         { sku: 'A1', name: 'Juego complementario (AGRUPADO)', price: 133700, category: 'Kits Predefinidos' },
         { sku: 'A2', name: 'Juego Clásico (7 Pzs.) + tapa (AGRUPADO)', price: 150000, category: 'Kits Predefinidos' },
         { sku: 'A3', name: 'Extractor completo (AGRUPADO)', price: 135000, category: 'Kits Predefinidos' },
-
+        
         // SOLUCIONES KIT
         { sku: 'S1', name: 'Kit de inicio: Paellera pequeña / Sartén gourmet mediano de 10"', price: 64500, category: 'Kits Predefinidos' },
         { sku: 'S2', name: 'Kit básico: Olla 4qt con tapa, Paellera peq.+ Sartén gourmet med. 10"', price: 104300, category: 'Kits Predefinidos' },
-
+        
         // COMBO TEAMS
         { sku: 'C1', name: 'Combo especial : Juego de olla especial + Sartén gourmet', price: 77000, category: 'Kits Predefinidos' },
         // PRECIO CORREGIDO de 79700 a 179700
         { sku: 'C2', name: 'Combo complementario: Juego complement + Sartén gourme med + Greca gr.', price: 179700, category: 'Kits Predefinidos' },
-        
-        // Productos de Regalo de la Lista de Regalos (Manteniendo los SKU originales con la categoría Regalo)
-        { sku: 'PR2134G', name: 'Kit Completo Barista RT (REGALO)', price: 5000, category: 'Regalo' }, // SKU modificado para evitar conflicto con PR2134 de Café
-        { sku: 'PR0021G', name: 'Tabla p/Cortar de Bambú Pequeña c/Silicona (REGALO)', price: 6500, category: 'Regalo' }, // SKU modificado para evitar conflicto con PR0021 de Cuchillería
-        { sku: 'CU0814G', name: 'Cuchillo Multiuso (REGALO)', price: 6700, category: 'Regalo' }, // SKU modificado para evitar conflicto con CU0814 de Cuchillería
-        { sku: 'PR0025G', name: 'Royal Prestige Perfect Pop (REGALO)', price: 8000, category: 'Regalo' }, // SKU modificado para evitar conflicto con PR0025 de Accesorios
-        { sku: 'CU0825G', name: 'Hacha de Cocina (REGALO)', price: 8000, category: 'Regalo' }, // SKU modificado para evitar conflicto con CU0825 de Cuchillería
-        { sku: 'PR0008G', name: 'Tabla de Bambú con Borde Silicona (REGALO)', price: 8200, category: 'Regalo' }, // SKU modificado para evitar conflicto con PR0008 de Cuchillería
-        { sku: 'PR2675', name: 'Hervidor 1/2 Cuarto - Mango Negro (REGALO)', price: 8500, category: 'Regalo' }, // Mantenido, el otro hervidor tiene diferente SKU
-        { sku: 'PR0609', name: 'Juego Cubiertos Americano - 24 Pzas (REGALO)', price: 9000, category: 'Regalo' },
-        { sku: 'PR2685', name: 'Hervidor 1 Cuarto - Mango Negro (REGALO)', price: 9500, category: 'Regalo' },
-        { sku: 'PR0196G', name: 'Juego de Utensilios de Cocina - 6 Pzas (REGALO)', price: 10700, category: 'Regalo' }, // SKU modificado para evitar conflicto con PR0196 de Otros
-        { sku: 'PR2128', name: 'Cafetera Royal Espresso (REGALO)', price: 14000, category: 'Regalo' },
-        { sku: 'PR2124', name: 'Cacerola Royal Prestige (REGALO)', price: 14000, category: 'Regalo' },
-    ];
 
+        // Productos de Regalo de la Lista de Regalos (Manteniendo los SKU originales con la categoría Regalo)
+        { sku: 'PR2134G', name: 'Kit Completo Barista RT (REGALO)', price: '5000', category: 'Regalo' },
+        { sku: 'SP0136G', name: 'Juego de 2 Tazas 16 oz. con Pared Doble (REGALO)', price: '5000', category: 'Regalo' }, // SKU modificado para evitar conflicto con SP0136 de Otros
+        { sku: 'SP0135G', name: 'Juego de 4 Tazas Con Pared de Doble (REGALO)', price: '6500', category: 'Regalo' }, // SKU modificado para evitar conflicto con SP0135 de Otros
+        { sku: 'PR0021G', name: 'Tabla Pequeña P/Cortar de Bambú (REGALO)', price: '6500', category: 'Regalo' }, // SKU modificado para evitar conflicto con PR0021 de Cuchillería
+        { sku: 'SP0262G', name: 'Jgo 2 Tazónes P/Mezclar con Silicona (REGALO)', price: '7300', category: 'Regalo' }, // SKU modificado para evitar conflicto con SP0262 de Recipientes
+        { sku: 'SP0066G', name: 'Tazón Mezclar De 10 QT C/Tapa (REGALO)', price: '8000', category: 'Regalo' }, // SKU modificado para evitar conflicto con SP0066 de Recipientes
+        { sku: 'PR0025G', name: 'Aro 35 cm. y ventana Innove + Perfect Pop (REGALO)', price: '8000', category: 'Regalo' }, // SKU modificado para evitar conflicto con PR0025 de Accesorios
+        { sku: 'CU0825G', name: 'Hacha de Cocina (REGALO)', price: '8000', category: 'Regalo' }, // SKU modificado para evitar conflicto con CU0825 de Cuchillería
+        { sku: 'PR0008G', name: 'Tabla de Bambú con Borde Silicona (REGALO)', price: '8200', category: 'Regalo' }, // SKU modificado para evitar conflicto con PR0008 de Cuchillería
+        { sku: 'PR2675', name: 'Hervidor 1/2 Cuarto - Mango Negro (REGALO)', price: '8500', category: 'Regalo' }, // Mantenido, el otro hervidor tiene diferente SKU
+        { sku: 'PR0609', name: 'Juego Cubiertos Americano - 24 Pzas (REGALO)', price: '9000', category: 'Regalo' },
+        { sku: 'PR2685', name: 'Hervidor 1 Cuarto - Mango Negro (REGALO)', price: '9500', category: 'Regalo' },
+        { sku: 'PR0196G', name: 'Juego de Utensilios de Cocina - 6 Pzas (REGALO)', price: '10700', category: 'Regalo' }, // SKU modificado para evitar conflicto con PR0196 de Otros
+        { sku: 'PR2128', name: 'Cafetera Royal Espresso (REGALO)', price: '14000', category: 'Regalo' },
+        { sku: 'PR2124', name: 'Cacerola Royal Prestige (REGALO)', price: '14000', category: 'Regalo' },
+    ];
+    
     // Obtener elementos del DOM
     const productList = document.getElementById('product-list');
     const quoteItemsDisplay = document.getElementById('quote-items');
@@ -450,41 +430,44 @@
     // Nuevo elemento para advertencia de pago inicial mínimo
     const initialPaymentWarning = document.getElementById('initial-payment-warning');
 
-
     // --- Funciones de Renderizado ---
-
+    
     // 1. Renderiza el catálogo de productos con filtros
     function renderProductList(searchTerm = '', category = '') {
         // Limpia la lista actual
         productList.innerHTML = '';
-        const searchLower = searchTerm.toLowerCase().trim();
+        if (productCatalog.length === 0) {
+            productList.innerHTML = '<p class="text-center text-gray-500 pt-4">No hay productos disponibles.</p>';
+            return;
+        }
 
+        const searchLower = searchTerm.toLowerCase().trim();
         const filteredProducts = productCatalog.filter(product => {
-            const matchesSearch = product.name.toLowerCase().includes(searchLower) || product.sku.includes(searchLower);
+            const matchesSearch = product.name.toLowerCase().includes(searchLower) || product.sku.toLowerCase().includes(searchLower);
             const matchesCategory = category === '' || product.category === category;
             return matchesSearch && matchesCategory;
         });
 
         if (filteredProducts.length === 0) {
-            productList.innerHTML = `<p class="text-center text-gray-500 pt-8">No se encontraron productos para los filtros aplicados.</p>`;
+            productList.innerHTML = `<p class="text-center text-gray-500 pt-4">No se encontraron productos para "${searchTerm}" en esta categoría.</p>`;
             return;
         }
 
         filteredProducts.forEach(product => {
             const isGift = product.category === 'Regalo';
+            const priceValue = parseFloat(product.price) || 0; // Asegurarse de parsear si es string
             
             const productCard = document.createElement('div');
             productCard.className = `flex items-center justify-between p-3 rounded-lg border shadow-sm hover:shadow-md transition duration-200 ${isGift ? 'bg-yellow-100 border-yellow-300' : 'bg-gray-50 border-gray-200'}`;
-            
             productCard.innerHTML = `
                 <div class="flex flex-col">
                     <span class="font-semibold text-gray-800">${product.name}</span>
-                    <span class="text-xs ${isGift ? 'text-yellow-700 font-bold' : 'text-gray-500'}">
-                        SKU: ${product.sku} | ${isGift ? '🎁 REGALO (Para control)' : product.category}
+                    <span class="text-xs ${isGift ? 'text-yellow-700 font-bold' : 'text-gray-500'}"> 
+                        SKU: ${product.sku} | ${isGift ? '🎁 REGALO (Para control)' : product.category} 
                     </span>
                 </div>
                 <div class="flex items-center space-x-4">
-                    <span class="text-lg font-bold ${isGift ? 'text-yellow-800' : 'text-emerald-600'}">${formatter.format(product.price)}</span>
+                    <span class="text-lg font-bold ${isGift ? 'text-yellow-800' : 'text-emerald-600'}">${formatter.format(priceValue)}</span>
                     <button data-sku="${product.sku}" class="add-to-quote-btn bg-emerald-500 text-white py-1 px-3 rounded-full text-sm font-medium hover:bg-emerald-600 transition duration-150 shadow-md">
                         Añadir
                     </button>
@@ -507,24 +490,25 @@
             emptyQuoteMessage.classList.remove('hidden');
             return;
         }
-
         emptyQuoteMessage.classList.add('hidden');
 
         quote.items.forEach((item, index) => {
             const isGift = item.product.category === 'Regalo';
+            const priceValue = parseFloat(item.product.price) || 0; // Asegurarse de parsear si es string
+            const totalItemPrice = priceValue * item.quantity;
             
             const itemDiv = document.createElement('div');
             itemDiv.className = `flex items-center justify-between text-sm ${isGift ? 'bg-yellow-100 text-yellow-800 font-semibold' : 'bg-gray-50 text-gray-700'} p-2 rounded border-l-4 ${isGift ? 'border-yellow-500' : 'border-emerald-500'}`;
             itemDiv.innerHTML = `
                 <div class="flex flex-col truncate">
                     <span class="font-medium truncate">${item.product.name} ${isGift ? '(🎁 Regalo)' : ''}</span>
-                    <span class="text-xs ${isGift ? 'text-yellow-700' : 'text-gray-500'}">x${item.quantity} | ${formatter.format(item.product.price)} c/u</span>
+                    <span class="text-xs ${isGift ? 'text-yellow-700' : 'text-gray-500'}">x${item.quantity} | ${formatter.format(priceValue)} c/u</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <span class="font-bold ${isGift ? 'text-yellow-800' : 'text-emerald-600'}">${formatter.format(item.product.price * item.quantity)}</span>
+                    <span class="font-bold ${isGift ? 'text-yellow-800' : 'text-emerald-600'}">${formatter.format(totalItemPrice)}</span>
                     <button data-index="${index}" class="remove-item-btn text-red-500 hover:text-red-700 transition duration-150 p-1 rounded">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                            <path fill-rule="evenodd" d="M8.75 1A2.75 2.75 0 0 0 6 3.75v.5H2.75a.75.75 0 0 0 0 1.5h.581l1.194 9.553A2.75 2.75 0 0 0 7.279 17.5h5.442a2.75 2.75 0 0 0 2.75-2.525l1.194-9.553h.581a.75.75 0 0 0 0-1.5H14V3.75A2.75 2.75 0 0 0 11.25 1h-2.5ZM10 6a.75.75 0 0 1 .75.75v6.5a.75.75 0 0 1-1.5 0v-6.5A.75.75 0 0 1 10 6Zm3.25 3.5a.75.75 0 0 0 0 1.5h.008a.75.75 0 0 0 0-1.5H13.25ZM6.75 10a.75.75 0 0 0-.75.75v.008a.75.75 0 0 0 1.5 0V10.75a.75.75 0 0 0-.75-.75Z" clip-rule="evenodd" />
                         </svg>
                     </button>
                 </div>
@@ -538,18 +522,11 @@
         });
     }
 
-    // 3. Renderiza las opciones del filtro de categoría
-    function renderCategoryFilters() {
-        // Obtener todas las categorías únicas
-        const allCategories = productCatalog.map(p => p.category);
+    // 3. Rellena las opciones de categorías en el filtro
+    function populateCategoryFilter() {
+        const uniqueCategories = [...new Set(productCatalog.map(p => p.category))];
         
-        // Crear un Set para asegurar la unicidad y ordenar alfabéticamente
-        const uniqueCategories = [...new Set(allCategories)].sort();
-
-        // Limpiar opciones existentes (excepto "Todas las Categorías")
-        categoryFilter.innerHTML = '<option value="">Todas las Categorías</option>';
-
-        // Mover 'Regalo' al final de la lista si existe
+        // Mover 'Regalo' al final si existe
         const indexRegalo = uniqueCategories.indexOf('Regalo');
         if (indexRegalo > -1) {
             uniqueCategories.splice(indexRegalo, 1); // Removerlo de la posición actual
@@ -573,7 +550,7 @@
 
         if (product) {
             const existingItem = quote.items.find(item => item.product.sku === sku);
-            
+
             if (existingItem) {
                 // Si ya existe, incrementa la cantidad
                 existingItem.quantity += 1;
@@ -581,7 +558,7 @@
                 // Si no existe, lo añade
                 quote.items.push({ product, quantity: 1 });
             }
-            
+
             // Recalcula y renderiza
             calculateQuote();
             renderQuoteItems();
@@ -591,10 +568,10 @@
     // Maneja la remoción de un producto de la cotización
     function handleRemoveItem(event) {
         const index = parseInt(event.currentTarget.dataset.index);
-        
+
         if (index >= 0 && index < quote.items.length) {
             const item = quote.items[index];
-            
+
             if (item.quantity > 1) {
                 // Si hay más de uno, decrementa la cantidad
                 item.quantity -= 1;
@@ -602,19 +579,19 @@
                 // Si es el último, remueve el item
                 quote.items.splice(index, 1);
             }
-            
+
             // Recalcula y renderiza
             calculateQuote();
             renderQuoteItems();
         }
     }
-    
+
     // Maneja el pago inicial con botones de porcentaje
     function handleInitialPreset(percent) {
         // Asegura que el valor total ya esté calculado
         const total = parseFloat(totalDisplay.dataset.value) || 0;
         const initialPaymentAmount = total * (percent / 100);
-        
+
         initialPaymentInput.value = initialPaymentAmount.toFixed(0);
         calculateQuote();
     }
@@ -632,36 +609,31 @@
         calculateQuote();
     }
 
-
     // --- Función Principal de Cálculo ---
-
     function calculateQuote() {
         // 1. Obtener valores de entrada
         quote.discountPercentage = parseFloat(discountPercentageInput.value) || 0;
         quote.interestRate = parseFloat(interestRateInput.value) || 0;
         quote.initialPayment = parseFloat(initialPaymentInput.value) || 0;
-        // Asegurarse de que el plazo seleccionado sea un número
-        const selectedTermRadio = document.querySelector('.term-radio:checked');
-        if (selectedTermRadio) {
-            quote.termMonths = parseInt(selectedTermRadio.value);
-        } else {
-            quote.termMonths = 24; // Default
-        }
+        quote.termMonths = parseInt(document.querySelector('input[name="term"]:checked').value) || 24;
 
+        // 2. Calcular Subtotal (Solo productos que NO son 'Regalo')
+        const subtotalItems = quote.items.filter(item => item.product.category !== 'Regalo');
+        // Importante: parseFloat se usa aquí para asegurar que los precios (que pueden ser strings) se traten como números
+        const subtotal = subtotalItems.reduce((sum, item) => sum + (parseFloat(item.product.price) * item.quantity), 0);
 
-        // 2. Calcular Subtotal
-        const subtotal = quote.items.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
-        
         // 3. Calcular Descuento
-        const discountAmount = subtotal * (quote.discountPercentage / 100);
+        const discountRate = quote.discountPercentage / 100;
+        const discountAmount = subtotal * discountRate;
         
         // 4. Calcular Total Final (Capital)
         const total = subtotal - discountAmount;
 
         // 5. CALCULAR CONTROL DE REGALO POR VOLUMEN (10%)
         const giftItems = quote.items.filter(item => item.product.category === 'Regalo');
-        const totalGiftValue = giftItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
-        const maxGiftValue = total * GIFT_LIMIT_PERCENTAGE; 
+        // Importante: parseFloat se usa aquí para asegurar que los precios (que son strings) se traten como números
+        const totalGiftValue = giftItems.reduce((sum, item) => sum + (parseFloat(item.product.price) * item.quantity), 0);
+        const maxGiftValue = total * GIFT_LIMIT_PERCENTAGE;
 
         // 6. Actualizar Display de Regalo
         giftTotalDisplay.textContent = formatter.format(totalGiftValue);
@@ -679,84 +651,78 @@
             }
         } else {
             if (total > 0) {
-                 giftWarningMessage.className = 'mt-3 p-3 text-center rounded-lg font-semibold bg-blue-100 text-blue-800';
-                 giftWarningMessage.textContent = 'Aún no se ha añadido un regalo de la lista.';
+                giftWarningMessage.className = 'mt-3 p-3 text-center rounded-lg font-semibold bg-blue-100 text-blue-800';
+                giftWarningMessage.textContent = 'Aún no se ha añadido un regalo de la lista.';
             } else {
                 giftWarningMessage.classList.add('hidden');
             }
         }
 
-
         // 7. CALCULAR CONTROL DE PAGO INICIAL MÍNIMO (5%)
         const minInitialPayment = total * MINIMUM_INITIAL_PAYMENT_PERCENTAGE;
-
         if (total > 0 && quote.initialPayment > 0 && quote.initialPayment < minInitialPayment) {
             initialPaymentWarning.classList.remove('hidden');
         } else {
             initialPaymentWarning.classList.add('hidden');
         }
-        
-        // 8. Calcular Porcentaje de Pago Inicial (solo para display)
+
+
+        // 8. Calcular Porcentaje de Pago Inicial
         let initialPaymentPercent = 0;
-        if (total > 0 && quote.initialPayment > 0) {
+        if (total > 0) {
             initialPaymentPercent = (quote.initialPayment / total) * 100;
+            if (initialPaymentPercent > 100) initialPaymentPercent = 100; // Cap at 100%
         }
 
-        // 9. Calcular Monto a Financiar
+        // 9. Calcular Financiamiento
         const amountFinanced = Math.max(0, total - quote.initialPayment);
+        const rateMonthly = (quote.interestRate / 100) / 12; // Tasa de interés mensual
+        const n = quote.termMonths; // Número de pagos
 
-        // 10. Calcular Pago Mensual (Fórmula de Amortización Francesa)
         let monthlyPayment = 0;
-        
-        if (amountFinanced > 0 && quote.termMonths > 0) {
-            // Tasa de interés mensual (tasa anual / 12 / 100)
-            const monthlyRate = (quote.interestRate / 12) / 100;
 
-            if (monthlyRate > 0) {
-                // Fórmula: M = P * [ i(1 + i)^n ] / [ (1 + i)^n – 1 ]
-                monthlyPayment = amountFinanced * (monthlyRate * Math.pow(1 + monthlyRate, quote.termMonths)) / 
-                    (Math.pow(1 + monthlyRate, quote.termMonths) - 1);
-            } else {
-                // Si la tasa es 0, es solo el capital dividido por el plazo
-                monthlyPayment = amountFinanced / quote.termMonths;
-            }
+        if (amountFinanced > 0 && rateMonthly > 0) {
+            // Fórmula de pago mensual de un préstamo (PMT)
+            monthlyPayment = amountFinanced * (rateMonthly * Math.pow((1 + rateMonthly), n)) / (Math.pow((1 + rateMonthly), n) - 1);
+        } else if (amountFinanced > 0 && rateMonthly === 0) {
+            // Si la tasa de interés es 0 (raro, pero para evitar división por cero)
+             monthlyPayment = amountFinanced / n;
+        } else {
+            monthlyPayment = 0;
         }
         
-        // 11. Actualizar Displays
+        // 10. Actualizar el DOM
         subtotalDisplay.textContent = formatter.format(subtotal);
+        discountAmountDisplay.textContent = formatter.format(-discountAmount);
         
-        discountAmountDisplay.textContent = formatter.format(discountAmount);
-
-        // Almacenar el total en un data attribute para usarlo en handleInitialPreset
+        // Guardar el valor total en un data attribute para usarlo en handleInitialPreset
         totalDisplay.textContent = formatter.format(total);
         totalDisplay.dataset.value = total.toFixed(2); 
 
         // Actualizar Pago Inicial
         initialPaymentInput.max = total.toFixed(2); // No puede ser mayor al total
         if (total > 0 && quote.initialPayment > total) {
-             // Si el pago inicial ingresado manualmente es mayor al total, lo limitamos
-             initialPaymentInput.value = total.toFixed(0);
-             quote.initialPayment = total; // Ajustar el valor de la variable
-             initialPaymentPercent = 100;
+            // Si el pago inicial ingresado manualmente es mayor al total, lo limitamos
+            initialPaymentInput.value = total.toFixed(0);
+            quote.initialPayment = total; // Ajustar el valor de la variable
+            initialPaymentPercent = 100;
         } else if (total === 0) {
             // Si el total es 0, el pago inicial debe ser 0
             initialPaymentInput.value = 0;
             quote.initialPayment = 0;
             initialPaymentPercent = 0;
         }
-        initialPaymentPercentDisplay.textContent = `(${initialPaymentPercent.toFixed(1)}% del total)`;
 
+        initialPaymentPercentDisplay.textContent = `(${initialPaymentPercent.toFixed(1)}% del total)`;
         amountFinancedDisplay.textContent = formatter.format(amountFinanced);
         monthlyPaymentDisplay.textContent = formatter.format(monthlyPayment);
     }
 
+
     // --- Inicialización ---
-
     document.addEventListener('DOMContentLoaded', () => {
-        // Inicializar el filtro de categorías
-        renderCategoryFilters();
-
-        // Renderizar la lista de productos inicial
+        // Inicializar la lista de productos y filtros
+        populateCategoryFilter();
         renderProductList();
 
         // Inicializar Tasa de Interés al valor por defecto
@@ -798,4 +764,3 @@
 
 </body>
 </html>
-
