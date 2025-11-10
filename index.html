@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cotizador Royal Prestige Innove, Hilago SRL 2024</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
         body {
@@ -30,6 +31,10 @@
                 padding: 0.75rem;
                 border-top: 1px solid #d1d5db; /* gray-300 */
             }
+        }
+        /* Estilo temporal para ocultar elementos en la generación de PDF */
+        .hidden-for-pdf { 
+            display: none !important; 
         }
     </style>
 </head>
@@ -167,6 +172,21 @@
                         <button id="clear-quote-button" class="w-full mt-4 py-2 bg-red-500 text-white font-bold rounded-lg hover:bg-red-600 transition duration-150 shadow-md">
                             Limpiar Cotización
                         </button>
+                        
+                        <div class="mt-4 flex gap-2">
+                            <button id="export-pdf-button" class="flex-1 py-2 bg-emerald-600 text-white font-bold rounded-lg hover:bg-emerald-700 transition duration-150 shadow-md flex items-center justify-center space-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                    <path fill-rule="evenodd" d="M12 2.25a.75.75 0 0 1 .75.75v10.19l3.22-3.22a.75.75 0 1 1 1.06 1.06l-4.5 4.5a.75.75 0 0 1-1.06 0l-4.5-4.5a.75.75 0 1 1 1.06-1.06l3.22 3.22V3a.75.75 0 0 1 .75-.75Zm.75 13.5a.75.75 0 0 0-1.5 0v3.31l-3.22-3.22a.75.75 0 1 0-1.06 1.06l4.5 4.5a.75.75 0 0 0 1.06 0l4.5-4.5a.75.75 0 1 0-1.06-1.06l-3.22 3.22v-3.31Z" clip-rule="evenodd" />
+                                </svg>
+                                <span>PDF</span>
+                            </button>
+                            <button id="share-button" class="flex-1 py-2 bg-blue-500 text-white font-bold rounded-lg hover:bg-blue-600 transition duration-150 shadow-md flex items-center justify-center space-x-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5">
+                                    <path fill-rule="evenodd" d="M15.75 4.5a3 3 0 1 1 .823 5.922 1.375 1.375 0 0 0-.646 1.15c.01.272.042.544.093.816A7.5 7.5 0 1 1 9 18.75a7.5 7.5 0 0 1 7.5-7.5c-.078-.516-.226-1.018-.438-1.488a1.375 1.375 0 0 0-.646-1.15.75.75 0 0 1 .075-.157.75.75 0 0 1 .184-.135Zm-3.665.23a1.5 1.5 0 1 0-2.31 1.956c.36.425.961.597 1.493.421l1.109-1.226c.304-.336.196-.867-.292-1.051Z" clip-rule="evenodd" />
+                                </svg>
+                                <span>Compartir</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -430,6 +450,10 @@
     // Nuevo elemento para advertencia de pago inicial mínimo
     const initialPaymentWarning = document.getElementById('initial-payment-warning');
 
+    // Elementos para los nuevos botones
+    const exportPdfButton = document.getElementById('export-pdf-button');
+    const shareButton = document.getElementById('share-button');
+
     // --- Funciones de Renderizado ---
     
     // 1. Renderiza el catálogo de productos con filtros
@@ -608,6 +632,65 @@
         renderQuoteItems();
         calculateQuote();
     }
+    
+    // 3. Función para Exportar a PDF
+    async function exportQuoteToPDF() {
+        const element = document.getElementById('quote-summary');
+        const quoteName = `Cotizacion_Royal_Prestige_${new Date().toLocaleDateString('es-MX').replace(/\//g, '-')}`;
+
+        // Ocultar elementos irrelevantes para el PDF (botones de limpiar/exportar/compartir y botones de eliminar items)
+        // Se usa una clase CSS temporal para ocultar elementos que no deben aparecer en el PDF
+        const itemsToRemove = element.querySelectorAll('.remove-item-btn, #clear-quote-button, #export-pdf-button, #share-button');
+        itemsToRemove.forEach(el => el.classList.add('hidden-for-pdf'));
+        
+        // Agregar el estilo de ocultación temporalmente al head
+        const style = document.createElement('style');
+        style.innerHTML = '.hidden-for-pdf { display: none !important; }';
+        document.head.appendChild(style);
+
+        const options = {
+            margin: 0.5,
+            filename: quoteName + '.pdf',
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2, logging: false, dpi: 192, letterRendering: true },
+            jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+        };
+
+        // Usa html2pdf para generar el PDF
+        await html2pdf().from(element).set(options).save();
+        
+        // Limpiar: remover la clase de ocultación y el estilo
+        itemsToRemove.forEach(el => el.classList.remove('hidden-for-pdf'));
+        document.head.removeChild(style);
+    }
+    
+    // 4. Función para Compartir
+    function shareQuote() {
+        if (navigator.share) {
+            const total = totalDisplay.textContent;
+            const subtotal = subtotalDisplay.textContent;
+            const monthly = monthlyPaymentDisplay.textContent;
+            const term = quote.termMonths;
+            const interest = quote.interestRate;
+            
+            const shareData = {
+                title: 'Cotización Royal Prestige Hilago SRL',
+                text: `¡Hola! Aquí está tu cotización Royal Prestige de Hilago SRL:\n\n` +
+                      `Subtotal: ${subtotal}\n` +
+                      `Total a Pagar: ${total}\n\n` +
+                      `Opciones de Financiamiento (Tasa: ${interest}% a ${term} meses):\n` +
+                      `Pago Mensual Estimado: ${monthly}`,
+                url: document.location.href // Comparte el enlace de la aplicación (útil si está en línea)
+            };
+
+            navigator.share(shareData)
+                .then(() => console.log('Cotización compartida con éxito.'))
+                .catch((error) => alert('Error al compartir: ' + error.message + '. Por favor, intente con la opción PDF.'));
+        } else {
+            alert('Tu navegador no soporta la función de compartir nativa. Por favor, usa el botón "PDF" para exportar la cotización.');
+        }
+    }
+
 
     // --- Función Principal de Cálculo ---
     function calculateQuote() {
@@ -756,6 +839,10 @@
         // Listener para el botón de limpiar
         clearQuoteButton.addEventListener('click', clearQuote);
         
+        // Listeners para PDF y Compartir (NUEVO)
+        if (exportPdfButton) exportPdfButton.addEventListener('click', exportQuoteToPDF);
+        if (shareButton) shareButton.addEventListener('click', shareQuote);
+        
         // Llama a calculateQuote para que todos los displays se inicialicen correctamente
         calculateQuote();
     });
@@ -764,3 +851,4 @@
 
 </body>
 </html>
+```
